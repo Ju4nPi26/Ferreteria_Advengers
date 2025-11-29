@@ -53,6 +53,13 @@
       <DependentUpon>CategoriasFrm.cs</DependentUpon>
     </Compile>
     <Compile Include="Conexion.cs" />
+    <Compile Include="ComprasFrm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="ComprasFrm.Designer.cs">
+      <DependentUpon>ComprasFrm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Models\Compras.cs" />
     <Compile Include="Detalle_VentaFrm.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -91,6 +98,8 @@
     <EmbeddedResource Include="CategoriasFrm.resx">
       <DependentUpon>CategoriasFrm.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="ComprasFrm.resx">
+      <DependentUpon>ComprasFrm.cs</DependentUpon>
     <EmbeddedResource Include="Detalle_VentaFrm.resx">
       <DependentUpon>Detalle_VentaFrm.cs</DependentUpon>
     </EmbeddedResource>
