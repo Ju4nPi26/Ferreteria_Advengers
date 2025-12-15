@@ -25,6 +25,7 @@ namespace Ferreteria_Advengers
             if (id != 0)
             {
                 Marca.Eliminar(id);
+                dataGridView1.DataSource = Marca.Obtener();
             }
             dataGridView1.DataSource = Marca.Obtener();
             limpiar();

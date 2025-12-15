@@ -41,6 +41,8 @@
             this.TxtTipo = new System.Windows.Forms.TextBox();
             this.label1 = new System.Windows.Forms.Label();
             this.dataGridView1 = new System.Windows.Forms.DataGridView();
+            this.label5 = new System.Windows.Forms.Label();
+            this.cbProductos = new System.Windows.Forms.ComboBox();
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer1)).BeginInit();
             this.splitContainer1.Panel1.SuspendLayout();
             this.splitContainer1.Panel2.SuspendLayout();
@@ -56,6 +58,8 @@
             // 
             // splitContainer1.Panel1
             // 
+            this.splitContainer1.Panel1.Controls.Add(this.cbProductos);
+            this.splitContainer1.Panel1.Controls.Add(this.label5);
             this.splitContainer1.Panel1.Controls.Add(this.BtnEliminar);
             this.splitContainer1.Panel1.Controls.Add(this.BtnEditar);
             this.splitContainer1.Panel1.Controls.Add(this.BtnGuardar);
@@ -77,7 +81,7 @@
             // 
             // BtnEliminar
             // 
-            this.BtnEliminar.Location = new System.Drawing.Point(103, 389);
+            this.BtnEliminar.Location = new System.Drawing.Point(103, 415);
             this.BtnEliminar.Name = "BtnEliminar";
             this.BtnEliminar.Size = new System.Drawing.Size(86, 23);
             this.BtnEliminar.TabIndex = 10;
@@ -87,7 +91,7 @@
             // 
             // BtnEditar
             // 
-            this.BtnEditar.Location = new System.Drawing.Point(163, 340);
+            this.BtnEditar.Location = new System.Drawing.Point(163, 366);
             this.BtnEditar.Name = "BtnEditar";
             this.BtnEditar.Size = new System.Drawing.Size(75, 23);
             this.BtnEditar.TabIndex = 9;
@@ -97,7 +101,7 @@
             // 
             // BtnGuardar
             // 
-            this.BtnGuardar.Location = new System.Drawing.Point(34, 340);
+            this.BtnGuardar.Location = new System.Drawing.Point(34, 366);
             this.BtnGuardar.Name = "BtnGuardar";
             this.BtnGuardar.Size = new System.Drawing.Size(90, 23);
             this.BtnGuardar.TabIndex = 8;
@@ -107,7 +111,7 @@
             // 
             // TxtReferencia
             // 
-            this.TxtReferencia.Location = new System.Drawing.Point(34, 278);
+            this.TxtReferencia.Location = new System.Drawing.Point(34, 240);
             this.TxtReferencia.Name = "TxtReferencia";
             this.TxtReferencia.Size = new System.Drawing.Size(215, 22);
             this.TxtReferencia.TabIndex = 7;
@@ -115,7 +119,7 @@
             // label4
             // 
             this.label4.AutoSize = true;
-            this.label4.Location = new System.Drawing.Point(31, 248);
+            this.label4.Location = new System.Drawing.Point(31, 215);
             this.label4.Name = "label4";
             this.label4.Size = new System.Drawing.Size(93, 16);
             this.label4.TabIndex = 6;
@@ -124,7 +128,7 @@
             // label3
             // 
             this.label3.AutoSize = true;
-            this.label3.Location = new System.Drawing.Point(31, 174);
+            this.label3.Location = new System.Drawing.Point(31, 156);
             this.label3.Name = "label3";
             this.label3.Size = new System.Drawing.Size(52, 16);
             this.label3.TabIndex = 5;
@@ -132,14 +136,14 @@
             // 
             // TxtFecha
             // 
-            this.TxtFecha.Location = new System.Drawing.Point(34, 203);
+            this.TxtFecha.Location = new System.Drawing.Point(34, 176);
             this.TxtFecha.Name = "TxtFecha";
             this.TxtFecha.Size = new System.Drawing.Size(215, 22);
             this.TxtFecha.TabIndex = 4;
             // 
             // TxtCantidad
             // 
-            this.TxtCantidad.Location = new System.Drawing.Point(34, 130);
+            this.TxtCantidad.Location = new System.Drawing.Point(34, 118);
             this.TxtCantidad.Name = "TxtCantidad";
             this.TxtCantidad.Size = new System.Drawing.Size(215, 22);
             this.TxtCantidad.TabIndex = 3;
@@ -185,6 +189,23 @@
             this.dataGridView1.Size = new System.Drawing.Size(530, 450);
             this.dataGridView1.TabIndex = 0;
             // 
+            // label5
+            // 
+            this.label5.AutoSize = true;
+            this.label5.Location = new System.Drawing.Point(31, 280);
+            this.label5.Name = "label5";
+            this.label5.Size = new System.Drawing.Size(61, 16);
+            this.label5.TabIndex = 11;
+            this.label5.Text = "Producto";
+            // 
+            // cbProductos
+            // 
+            this.cbProductos.FormattingEnabled = true;
+            this.cbProductos.Location = new System.Drawing.Point(34, 299);
+            this.cbProductos.Name = "cbProductos";
+            this.cbProductos.Size = new System.Drawing.Size(215, 24);
+            this.cbProductos.TabIndex = 12;
+            // 
             // InventarioFrm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
@@ -219,5 +240,7 @@
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.TextBox TxtTipo;
         private System.Windows.Forms.Label label1;
+        private System.Windows.Forms.ComboBox cbProductos;
+        private System.Windows.Forms.Label label5;
     }
 }

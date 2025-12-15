@@ -34,18 +34,19 @@ namespace Ferreteria_Advengers.Models
                 ccn.Desconectar();
             }
         }
-        public static bool Guardar(string tipo, decimal cantidad, string fecha, string referencia)
+        public static bool Guardar(string tipo, decimal cantidad, string fecha, string referencia, int id_producto)
         {
             Conexion ccn = new Conexion();
             try
             {
                 ccn.Conectar();
-                string consulta = "INSERT INTO inventario (tipo, cantidad, fecha, referencia) VALUES (@tipo, @cantidad, @fecha, @referencia)";
+                string consulta = "INSERT INTO inventario (tipo, cantidad, fecha, referencia, id_producto) VALUES (@tipo, @cantidad, @fecha, @referencia, @id_producto)";
                 SqlCommand comando = new SqlCommand(consulta, ccn.ObtenerConexion());
-                comando.Parameters.AddWithValue("@ tipo", tipo);
+                comando.Parameters.AddWithValue("@tipo", tipo);
                 comando.Parameters.AddWithValue("@cantidad", cantidad);
                 comando.Parameters.AddWithValue("@fecha", fecha);
                 comando.Parameters.AddWithValue("@referencia", referencia);
+                comando.Parameters.AddWithValue("id_producto", id_producto);
                 comando.ExecuteNonQuery();
                 return true;
             }
@@ -59,7 +60,7 @@ namespace Ferreteria_Advengers.Models
                 ccn.Desconectar();
             }
         }
-        public static bool Editar(int id, string tipo, decimal cantidad, string fecha, string referencia)
+        public static bool Editar(int id, string tipo, decimal cantidad, string fecha, string referencia, int id_producto)
         {
             Conexion ccn = new Conexion();
             try
@@ -72,6 +73,7 @@ namespace Ferreteria_Advengers.Models
                 comando.Parameters.AddWithValue("@cantidad", cantidad);
                 comando.Parameters.AddWithValue("@fecha", fecha);
                 comando.Parameters.AddWithValue("@referencia", referencia);
+                comando.Parameters.AddWithValue("@id_producto", id_producto);
                 comando.ExecuteNonQuery();
                 return true;
             }

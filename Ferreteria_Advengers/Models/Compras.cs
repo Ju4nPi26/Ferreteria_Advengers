@@ -17,7 +17,7 @@ namespace Ferreteria_Advengers.Models
             try
             {
                 ccn.Conectar();
-                string consulta = "SELECT * FROM compras order by id_compra desc";
+                string consulta = "select c.*,p.razon_social from compras c inner join proveedores p on c.id_proveedor = p.id_proveedor order by id_compra desc";
                 SqlCommand comando = new SqlCommand(consulta, ccn.ObtenerConexion());
                 SqlDataAdapter adapter = new SqlDataAdapter(comando);
                 DataTable dt = new DataTable();
@@ -35,18 +35,19 @@ namespace Ferreteria_Advengers.Models
             }
 
         }
-        public static bool Guardar(string numero_factura, string fecha_compra, string total,  string estado)
+        public static bool Guardar(string numero_factura, string fecha_compra, string total,  string estado, int id_proveedor)
         {
             Conexion ccn = new Conexion();
             try
             {
                 ccn.Conectar();
-                string consulta = "INSERT INTO compras (numero_factura, fecha_compra, total, estado) VALUES (@numero_factura, @fecha_compra, @total, @estado)";
+                string consulta = "INSERT INTO compras (numero_factura, fecha_compra, total, estado,id_proveedor) VALUES (@numero_factura, @fecha_compra, @total, @estado, @id_proveedor)";
                 SqlCommand comando = new SqlCommand(consulta, ccn.ObtenerConexion());
                 comando.Parameters.AddWithValue("@numero_factura", numero_factura);
                 comando.Parameters.AddWithValue("@fecha_compra", fecha_compra);
                 comando.Parameters.AddWithValue("@total", total);
                 comando.Parameters.AddWithValue("@estado", estado);
+                comando.Parameters.AddWithValue("@id_proveedor",id_proveedor);
                 comando.ExecuteNonQuery();
                 return true;
             }
@@ -60,19 +61,20 @@ namespace Ferreteria_Advengers.Models
                 ccn.Desconectar();
             }
         }
-        public static bool Editar(int id, string numero_factura, string fecha_compra, string total, string estado)
+        public static bool Editar(int id, string numero_factura, string fecha_compra, string total, string estado, int id_proveedor)
         {
             Conexion ccn = new Conexion();
             try
             {
                 ccn.Conectar();
-                string consulta = "UPDATE compras SET numero_factura, fecha_compra, total, estado = @numero_factura, @fecha_compra, @total, @estado WHERE id_categoria = @id";
+                string consulta = "UPDATE compras SET numero_factura=@numero_factura, fecha_compra=@fecha_compra, total=@total, estado=@estado, id_proveedor=@id_proveedor WHERE id_compra = @id";
                 SqlCommand comando = new SqlCommand(consulta, ccn.ObtenerConexion());
                 comando.Parameters.AddWithValue("@id", id);
                 comando.Parameters.AddWithValue("@numero_factura", numero_factura);
                 comando.Parameters.AddWithValue("@fecha_compra", fecha_compra);
                 comando.Parameters.AddWithValue("@total", total);
                 comando.Parameters.AddWithValue("@estado", estado);
+                comando.Parameters.AddWithValue("@id_proveedor", id_proveedor);
                 comando.ExecuteNonQuery();
                 return true;
             }

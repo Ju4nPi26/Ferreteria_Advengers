@@ -26,7 +26,13 @@ namespace Ferreteria_Advengers
             if (dataGridView1.Columns.Count > 0)
             {
                 dataGridView1.Columns["id_compra"].Visible = false;
+                dataGridView1.Columns["id_proveedor"].Visible = false;
             }
+
+            cbProveedores.DataSource = Proveedore.Obtener();
+            cbProveedores.DisplayMember = "razon_social";
+            cbProveedores.ValueMember = "id_proveedor";
+
         }
 
         private void button1_Click(object sender, EventArgs e)
@@ -35,15 +41,16 @@ namespace Ferreteria_Advengers
             string fecha_compra = timefech.Value.ToString("yyyy-MM-dd");
             string total = txtTotal.Text;
             string estado = txtEstado.Text;
+            int id_proveedor = Convert.ToInt32(cbProveedores.SelectedValue);
             bool resultado = false;
             if (Id_compra == 0)
             {
-                resultado = Compras.Guardar(numero_factura, fecha_compra, total, estado);
+                resultado = Compras.Guardar(numero_factura, fecha_compra, total, estado,id_proveedor);
                 MessageBox.Show("Compra guardada correctamente.");
             }
             else
             {
-                resultado = Compras.Editar(Id_compra, numero_factura, fecha_compra, total, estado);
+                resultado = Compras.Editar(Id_compra, numero_factura, fecha_compra, total, estado, id_proveedor);
                 MessageBox.Show("Compra Editada correctamente.");
             }
             dataGridView1.DataSource = Compras.Obtener();

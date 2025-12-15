@@ -17,7 +17,7 @@ namespace Ferreteria_Advengers.Models
             try
             {
                 cnn.Conectar();
-                string consulta = "select * from ventas order by id_venta desc";
+                string consulta = "select v.*,c.nombre,u.nombre_completo from ventas v inner join clientes c on v.id_cliente = c.id_cliente\r\ninner join usuarios u on v.id_usuario = u.id_usuario order by id_venta desc";
                 SqlCommand comando = new SqlCommand(consulta, cnn.ObtenerConexion());
                 SqlDataAdapter adapter = new SqlDataAdapter(comando);
                 DataTable dt = new DataTable();
@@ -34,26 +34,25 @@ namespace Ferreteria_Advengers.Models
                 cnn.Desconectar();
             }
         }
-        public static bool Guardar(string numero_comprobante, string tipo_comprobante, string tipo_pago,
-            string fecha_venta, string total, string tipo_venta, string estado)
+        public static bool Guardar(string numero_comprobante, string tipo_comprobante, string tipo_pago, string fecha_venta, string total, string tipo_venta, string estado, int id_cliente, int id_usuario)
         {
             Conexion cnn = new Conexion();
             try
             {
                 cnn.Conectar();
-                string consulta = "INSERT INTO productos (numero_comprobante,tipo_comprobante,tipo_pago,fecha_venta,total, tipo_venta,estado) values (@numero_comprobante,@tipo_comprobante,@tipo_pago,@fecha_venta,@total, @tipo_venta,@estado)";
-        SqlCommand comando = new SqlCommand(consulta, cnn.ObtenerConexion());
-             comando.Parameters.AddWithValue("@numero_comprobante", numero_comprobante);
-             comando.Parameters.AddWithValue("@tipo_comprobante", tipo_comprobante);
-             comando.Parameters.AddWithValue("@tipo_pago", tipo_pago);
-             comando.Parameters.AddWithValue("@fecha_venta", fecha_venta);
-             comando.Parameters.AddWithValue("@total", total);
-             comando.Parameters.AddWithValue("@tipo_venta", tipo_venta);
-             comando.Parameters.AddWithValue("@estado", estado);
-             comando.ExecuteNonQuery();
-             comando.ExecuteNonQuery();
-            return true;
-
+                string consulta = "INSERT INTO productos (numero_comprobante,tipo_comprobante,tipo_pago,fecha_venta,total, tipo_venta,estado, id_cliente, id_usuario) values (@numero_comprobante,@tipo_comprobante,@tipo_pago,@fecha_venta,@total, @tipo_venta,@estado, @id_cliente, @id_usuario)";
+               SqlCommand comando = new SqlCommand(consulta, cnn.ObtenerConexion());
+                comando.Parameters.AddWithValue("@numero_comprobante", numero_comprobante);
+                comando.Parameters.AddWithValue("@tipo_comprobante", tipo_comprobante);
+                comando.Parameters.AddWithValue("@tipo_pago", tipo_pago);
+                comando.Parameters.AddWithValue("@fecha_venta", fecha_venta);
+                comando.Parameters.AddWithValue("@total", total);
+                comando.Parameters.AddWithValue("@tipo_venta", tipo_venta);
+                comando.Parameters.AddWithValue("@estado", estado);
+                comando.Parameters.AddWithValue("@id_cliente", id_cliente);
+                comando.Parameters.AddWithValue("@id_usuario", id_usuario);
+                comando.ExecuteNonQuery();
+                return true;
             }
             catch (Exception ex)
             {
@@ -67,26 +66,28 @@ namespace Ferreteria_Advengers.Models
 
         }
            
-        public static bool Editar(int id,string numero_comprobante, string  tipo_comprobante, string tipo_pago, 
-            string fecha_venta,string  total, string estado)
+        public static bool Editar(int id, string numero_comprobante, string tipo_comprobante, string tipo_pago, string fecha_venta, string total, string tipo_venta, string estado, int id_cliente, int id_usuario)
              
         {
             Conexion cnn = new Conexion();
             try
             {
                 cnn.Conectar();
-        string consulta = "insert into clientes (numero_comprobante,tipo_comprobante,tipo_pago,fecha_venta,total," +
-             "tipo_venta,estado) " + "values (@numero_comprobante,@tipo_comprobante,@tipo_pago,@fecha_venta,@total," +
-             "@tipo_venta,@estado)";
-                SqlCommand comando = new SqlCommand(consulta,cnn.ObtenerConexion());  
-        comando.Parameters.AddWithValue("@numero_comprobante", numero_comprobante);
-        comando.Parameters.AddWithValue("@tipo_comprobante", tipo_comprobante);
-        comando.Parameters.AddWithValue("@tipo_pago", tipo_pago);
-        comando.Parameters.AddWithValue("@fecha_venta", fecha_venta);
-        comando.Parameters.AddWithValue("@total", total);
-        comando.Parameters.AddWithValue("@tipo_venta", total);
-        comando.Parameters.AddWithValue("@estado", estado);
-        comando.ExecuteNonQuery();
+                string consulta = "insert into clientes (numero_comprobante,tipo_comprobante,tipo_pago,fecha_venta,total," +
+                  "tipo_venta,estado, id_cliente, id_usuario) " + "values (@numero_comprobante,@tipo_comprobante,@tipo_pago,@fecha_venta,@total," +
+                   "@tipo_venta,@estado, @id_cliente, @id_usuario) WHERE id_venta = @id";
+                SqlCommand comando = new SqlCommand(consulta,cnn.ObtenerConexion());
+                comando.Parameters.AddWithValue("@id", id);
+                comando.Parameters.AddWithValue("@numero_comprobante", numero_comprobante);
+                comando.Parameters.AddWithValue("@tipo_comprobante", tipo_comprobante);
+                comando.Parameters.AddWithValue("@tipo_pago", tipo_pago);
+                comando.Parameters.AddWithValue("@fecha_venta", fecha_venta);
+                comando.Parameters.AddWithValue("@total", total);
+                comando.Parameters.AddWithValue("@tipo_venta", total);
+                comando.Parameters.AddWithValue("@estado", estado);
+                comando.Parameters.AddWithValue("@id_cliente", id_cliente);
+                comando.Parameters.AddWithValue("@id_usuario", id_usuario);
+                comando.ExecuteNonQuery();
                 return true;
             }
             catch (Exception ex)

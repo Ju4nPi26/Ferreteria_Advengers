@@ -13,7 +13,7 @@ namespace Ferreteria_Advengers
 {
     public partial class Ventasfrm : Form
     {
-        int id_ventas = 0;
+        int id_venta = 0;
         public Ventasfrm()
         {
             InitializeComponent();
@@ -50,15 +50,22 @@ namespace Ferreteria_Advengers
             string total = txttotal.Text;
             string tipo_venta = txttipo_venta.Text;
             string estado = txtestado.Text;
+            int id_cliente =Convert.ToInt32(cbClientes.SelectedValue);
+            int id_usuario = Convert.ToInt32(cbUsuarios.SelectedValue);
             bool resultado = false;
-            if (id_ventas == 0)
+            if (id_venta == 0)     
             {
-                resultado = Venta.Guardar(numero_comprobante, tipo_comprobante, tipo_pago, fecha_venta, total,
-                    tipo_venta, estado);
-                {
-
-                }
+              resultado = Venta.Guardar(numero_comprobante, tipo_comprobante, tipo_pago, fecha_venta, total, tipo_venta, estado, id_cliente, id_usuario);
+                MessageBox.Show("Venta guardada correctamente.");
             }
+            else
+            {
+               resultado = Venta.Editar(id_venta, numero_comprobante, tipo_comprobante, tipo_pago, fecha_venta, total, tipo_venta, estado, id_cliente, id_usuario);
+                MessageBox.Show("Venta Editada correctamente.");
+            }
+            dataGridView1.DataSource = Compras.Obtener();
+             limpiar();
+            
         }
         private void Ventasfrm_Load(object sender, EventArgs e)
         {
@@ -66,7 +73,16 @@ namespace Ferreteria_Advengers
             if (dataGridView1.Columns.Count > 0 )
             {
                 dataGridView1.Columns["id_venta"].Visible = false;
+                dataGridView1.Columns["id_cliente"].Visible = false;
+                dataGridView1.Columns["id_usuario"].Visible = false;
             }
+
+            cbClientes.DataSource = Cliente.Obtener();
+            cbClientes.DisplayMember = "numero_comprobante";
+            cbClientes.ValueMember = "id_cliente";
+            cbUsuarios.DataSource = Usuario.Obtener();
+            cbUsuarios.DisplayMember = "nombre_usuario";
+            cbUsuarios.ValueMember = "id_usuario";
 
         }
 

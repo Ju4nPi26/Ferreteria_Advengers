@@ -19,7 +19,7 @@ namespace Ferreteria_Advengers.Models
             try
             {
                 ccn.Conectar();
-                string consulta = "SELECT * FROM productos order by Id_producto desc";
+                string consulta = "select p.*,c.id_categoria,m.nombre from productos p inner join categoria c on p.id_categoria = c.id_categoria inner join marca m on p.id_marca = m.id_marca order by id_producto desc;";
                 SqlCommand comando = new SqlCommand(consulta, ccn.ObtenerConexion());
                 SqlDataAdapter adapter = new SqlDataAdapter(comando);
                 DataTable dt = new DataTable();
@@ -36,17 +36,17 @@ namespace Ferreteria_Advengers.Models
                 ccn.Desconectar();
             }
         }
-        public static bool Guardar(int codigo_barra, string nombre, string descripcion, string color, string unidad_medida, int stock_actual, int stock_minimo,
-            decimal costo_actual, decimal precio_minorista, decimal precio_mayorista)
+        public static bool Guardar(int codigo_barras, string nombre, string descripcion, string color, string unidad_medida, decimal stock_actual, decimal stock_minimo,
+            decimal costo_actual, decimal precio_minorista, decimal precio_mayorista, int id_categoria, int id_marca)
         {
             Conexion ccn = new Conexion();
             try
             {
                 ccn.Conectar();
-                string consulta = "INSERT INTO productos (codigo_barras, nombre, descripcion, color, unidad_medida, stock_actual, stock_minimo, costo_actual, precio_minorista, precio_mayorista) VALUES" +
-                " (@codigo_barra, @nombre, @descripcion, @color, @unidad_medida, @stock_actual, @stock_minimo, @costo_actual, @precio_minorista, @precio_mayorista)";
+                string consulta = "INSERT INTO productos (codigo_barras, nombre, descripcion, color, unidad_medida, stock_actual, stock_minimo, costo_actual, precio_minorista, precio_mayorista, id_categoria, id_marca) VALUES" +
+                " (@codigo_barras, @nombre, @descripcion, @color, @unidad_medida, @stock_actual, @stock_minimo, @costo_actual, @precio_minorista, @precio_mayorista, @id_categoria, @id_marca)";
                 SqlCommand comando = new SqlCommand(consulta, ccn.ObtenerConexion());
-                comando.Parameters.AddWithValue("@codigo_barra", codigo_barra);
+                comando.Parameters.AddWithValue("@codigo_barras", codigo_barras);
                 comando.Parameters.AddWithValue("@nombre", nombre);
                 comando.Parameters.AddWithValue("@descripcion", descripcion);
                 comando.Parameters.AddWithValue("@color", color);
@@ -56,6 +56,8 @@ namespace Ferreteria_Advengers.Models
                 comando.Parameters.AddWithValue("@costo_actual", costo_actual);
                 comando.Parameters.AddWithValue("@precio_minorista", precio_minorista);
                 comando.Parameters.AddWithValue("@precio_mayorista", precio_mayorista);
+                comando.Parameters.AddWithValue("@id_categoria", id_categoria);
+                comando.Parameters.AddWithValue("@id_marca", id_marca);
                 comando.ExecuteNonQuery();
                 return true;
             }
@@ -69,17 +71,17 @@ namespace Ferreteria_Advengers.Models
                 ccn.Desconectar();
             }
         }
-        public static bool Editar(int id, int codigo_barra, string nombre, string descripcion, string color, string unidad_medida, int stock_actual, int stock_minimo,
-            decimal costo_actual, decimal precio_minorista, decimal precio_mayorista)
+        public static bool Editar(int id, int codigo_barras, string nombre, string descripcion, string color, string unidad_medida, decimal stock_actual, decimal stock_minimo,
+            decimal costo_actual, decimal precio_minorista, decimal precio_mayorista, int id_categoria, int id_marca)
         {
             Conexion ccn = new Conexion();
             try
             {
                 ccn.Conectar();
-                string consulta = "UPDATE productos SET codigo_barra=@codigo_barra, nombre=@nombre, descripcion=@descripcion, color=@color, unidad_medida=@unidad_medida, " +
-                    "stock_actual=@stock_actual, stock_minimo=@stock_minimo, costo_actual=@costo_actual, precio_minorista=@precio_minorista, precio_mayorista=@precio_mayorista WHERE id=@id";
+                string consulta = "UPDATE productos SET codigo_barras=@codigo_barras, nombre=@nombre, descripcion=@descripcion, color=@color, unidad_medida=@unidad_medida,stock_actual=@stock_actual, stock_minimo=@stock_minimo, costo_actual=@costo_actual, precio_minorista=@precio_minorista, precio_mayorista=@precio_mayorista, id_categoria=@id_categoria, id_marca=@id_marca WHERE id_producto=@id";
                 SqlCommand comando = new SqlCommand(consulta, ccn.ObtenerConexion());
-                comando.Parameters.AddWithValue("@codigo_barra", codigo_barra);
+                comando.Parameters.AddWithValue("@id", id);
+                comando.Parameters.AddWithValue("@codigo_barras", codigo_barras);
                 comando.Parameters.AddWithValue("@nombre", nombre);
                 comando.Parameters.AddWithValue("@descripcion", descripcion);
                 comando.Parameters.AddWithValue("@color", color);
@@ -89,7 +91,8 @@ namespace Ferreteria_Advengers.Models
                 comando.Parameters.AddWithValue("@costo_actual", costo_actual);
                 comando.Parameters.AddWithValue("@precio_minorista", precio_minorista);
                 comando.Parameters.AddWithValue("@precio_mayorista", precio_mayorista);
-                comando.Parameters.AddWithValue("@id", id);
+                comando.Parameters.AddWithValue("@id_categoria", id_categoria);
+                comando.Parameters.AddWithValue("@id_marca", id_marca);
                 comando.ExecuteNonQuery();
                 return true;
             }

@@ -34,8 +34,13 @@ namespace Ferreteria_Advengers
             dataGridView1.DataSource = Inventario.Obtener();
             if (dataGridView1.Columns.Count > 0)
             {
-                dataGridView1.Columns[id_inventario].Visible = false;
+                dataGridView1.Columns["id_inventario"].Visible = false;
+                dataGridView1.Columns["id_producto"].Visible = false;
             }
+
+            cbProductos.DataSource = Producto.Obtener();
+            cbProductos.DisplayMember = "tipo";
+            cbProductos.ValueMember = "id_producto";
         }
 
         private void BtnGuardar_Click(object sender, EventArgs e)
@@ -44,16 +49,17 @@ namespace Ferreteria_Advengers
             decimal cantidad = Convert.ToDecimal(TxtCantidad.Text);
             string fecha = TxtFecha.Value.ToString("yyyy-MM-dd");
             string referencia =TxtReferencia.Text;
+            int id_producto = Convert.ToInt32(cbProductos.SelectedValue);
             bool resultado = false;
             if (id_inventario == 0)
             {
-                resultado = Inventario.Guardar(tipo, cantidad, fecha, referencia);
+                resultado = Inventario.Guardar(tipo, cantidad, fecha, referencia, id_producto);
                 MessageBox.Show("Guardado Correctamente");
 
             }
             else
             {
-                resultado = Inventario.Editar(id_inventario, tipo, cantidad, fecha, referencia);
+                resultado = Inventario.Editar(id_inventario, tipo, cantidad, fecha, referencia, id_producto);
                 MessageBox.Show("Editada Correctamente");
             }
             dataGridView1.DataSource = Detalle_Compra.Obtener();
